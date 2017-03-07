@@ -7,10 +7,12 @@ class User < ActiveRecord::Base
 
   include BCrypt
 
-  def self.authenticate(username, password_attempt)
-    user = User.find_by(username: username)
+  def self.authenticate(args)
+    user = User.find_by(username: args[:username])
     if user
-      return user if user.password == password_attempt
+      return user if user.password == args[:password]
+    else
+      nil
     end
   end
 
